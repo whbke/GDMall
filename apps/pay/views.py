@@ -9,16 +9,17 @@ from rest_framework.views import APIView
 from apps.order.models import OrderInfo, WxOrder
 from apps.user.models import WxUser
 from common.public_function import *
+from GDMall.settings import APP_ID, APP_SECRET, MCH_ID, MCH_KEY, WX_PAY_URL
 
-pay_url = 'https://api.mch.weixin.qq.com/pay/unifiedorder'
+pay_url = WX_PAY_URL
 # test_pay_url = 'https://api.mch.weixin.qq.com/sandboxnew/pay/unifiedorder'
 # sx_url = 'https://api.mch.weixin.qq.com/sandboxnew/pay/getsignkey'
 
 wxinfo = {
-    'APPID': 'wxc999b4ac2adc328e',
-    'SECRET': '8b4f824b7d81a2a2b091eca8c9eeb2ba',
-    'MCHID': '1535717001',
-    'MCHKEY': 'guanxinguanxinguanxinguanxin3344'
+    'APPID': APP_ID,
+    'SECRET': APP_SECRET,
+    'MCHID': MCH_ID,
+    'MCHKEY': MCH_KEY
     # 'MCHKEY': 'tJYjdlaqw0c3aGpF0MonfOUhh5JIaW4f'
 }
 

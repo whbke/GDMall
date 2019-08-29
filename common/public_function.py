@@ -64,10 +64,9 @@ class PublicFunction(object):
 
     def getOpenIdAndSessionKey(self,code):
         # 根据code获取open_id、session_key
-        app_id = 'wxc999b4ac2adc328e'
-        app_secret = '8b4f824b7d81a2a2b091eca8c9eeb2ba'
+        from GDMall.settings import APP_ID, APP_SECRET
         url = 'https://api.weixin.qq.com/sns/jscode2session?appid=%s&secret=%s&js_code=%s&grant_type=authorization_code' % (
-            app_id, app_secret, code)
+            APP_ID, APP_SECRET, code)
         result = requests.get(url).json()
         data = []
         data.append(result['openid'])

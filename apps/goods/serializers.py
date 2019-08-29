@@ -29,7 +29,8 @@ class SortSerializers(serializers.ModelSerializer):
     '''
     class Meta:
         model = Sort   # 序列化的对象
-        fields = 'id','name'   # 序列化的属性
+        fields = 'id','name', 'image'   # 序列化的属性
+
 class ClassifySerializers(serializers.ModelSerializer):
     '''
     分类

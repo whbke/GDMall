@@ -15,6 +15,13 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# 微信
+WX_PAY_URL='https://api.mch.weixin.qq.com/pay/unifiedorder'
+APP_ID="wx6f8fb4ac7999cce4"
+APP_SECRET="dd32e7f857f112af3954ef5b398c3cf1"
+MCH_ID='1535717001'
+MCH_KEY='tJYjdlaqw0c3aGpF0MonfOUhh5JIaW4f'
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
@@ -22,7 +29,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'h1#ym_$=yi!2*dhsae+m2p$ws_73!2xs)0=7@j6dvk(_e0vz50'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -96,7 +103,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'gdmall',
         'USER': 'root',
-        'PASSWORD': 'Gd123456',
+        'PASSWORD': 'mariadb1989',
         'HOST': '127.0.0.1'
     }
 }
@@ -139,7 +146,8 @@ USE_TZ = False
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 # 指定收集静态文件的路径
-STATIC_ROOT = '/opt/static/GDMall'
+# STATIC_ROOT = '/home/wh/work/code/GDMall'
+STATIC_ROOT = os.path.join(BASE_DIR, 'collected_static')
 
 # 证书配置
 # SESSION_COOKIE_SECURE=True
@@ -148,18 +156,23 @@ STATIC_ROOT = '/opt/static/GDMall'
 
 # 阿里云oss
 # ACCESS_KEY_ID = "LTAI5cuJmRKFt1fW"
-ACCESS_KEY_ID = "LTAIJ4v9rNDKgmn9"
+# ACCESS_KEY_ID = "LTAIJ4v9rNDKgmn9"
 # ACCESS_KEY_SECRET = "Km5xbIeCN7ockiONQiX6hY0FQFIOzh"
-ACCESS_KEY_SECRET = "IYQUGn86JH9GaeS5LfHXxM5hapCJSt"
-END_POINT = "oss-cn-shenzhen.aliyuncs.com"
-PREFIX_URL = 'http://'
-BUCKET_NAME = "grotesquery-mall"
-ALIYUN_OSS_CNAME = ""  # 自定义域名，如果不需要可以不填写
-BUCKET_ACL_TYPE = "public-read"  # private, public-read, public-read-write
-DEFAULT_FILE_STORAGE = 'aliyun_oss2_storage.backends.AliyunMediaStorage'
+# ACCESS_KEY_SECRET = "IYQUGn86JH9GaeS5LfHXxM5hapCJSt"
+# END_POINT = "oss-cn-shenzhen.aliyuncs.com"
+# PREFIX_URL = 'http://'
+# BUCKET_NAME = "grotesquery-mall"
+# ALIYUN_OSS_CNAME = ""  # 自定义域名，如果不需要可以不填写
+# BUCKET_ACL_TYPE = "public-read"  # private, public-read, public-read-write
+# DEFAULT_FILE_STORAGE = 'aliyun_oss2_storage.backends.AliyunMediaStorage'
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = "media"
+# ALI_MEDIA_URL = PREFIX_URL + BUCKET_NAME + "." + END_POINT + '/media/'
+
+DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 MEDIA_URL = '/media/'
-MEDIA_ROOT = "media"
-ALI_MEDIA_URL = PREFIX_URL + BUCKET_NAME + "." + END_POINT + '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+ALI_MEDIA_URL = '/media/'
 
 # redis配置
 CACHES = {

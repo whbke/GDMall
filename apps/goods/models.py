@@ -50,6 +50,7 @@ class Sort(BaseModel):
     类别模型类：男装、女装。。。
     '''
     name = models.CharField(max_length=30, verbose_name='类别名称')
+    image = models.ImageField(upload_to='SortImg', blank=True, verbose_name='图片')
 
     class Meta:
         db_table = 'gd_sort'

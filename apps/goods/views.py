@@ -58,6 +58,17 @@ class PopupListView(APIView):
         return Response(data)
 
 
+class SortListView(APIView):
+    '''
+    获取类别列表
+    '''
+
+    def get(self, request):
+        sorts = SortSerializers(Sort.objects.filter(is_delete=0), many=True)
+        data = {'data': sorts.data}
+        return Response(data)
+
+
 class GoodsListView(APIView):
     '''
     获取产品列表

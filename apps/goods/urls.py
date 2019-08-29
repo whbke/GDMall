@@ -7,6 +7,7 @@ app_name = 'goods'
 urlpatterns = [
     path('banner/', IndexView.as_view(), name='IndexView'),  # GET
     path('popup/', PopupListView.as_view(), name='PopupListView'),  # GET
+    path('sort/', SortListView.as_view(), name='SortListView'),  # GET
     path('goods', GoodsListView.as_view(), name='GoodsListsView'),  # GET
     re_path('goods/id/(?P<goods_id>\d+)', GoodsListViewById.as_view(), name='GoodsListsViewById'),  # GET
     re_path('goods/(?P<sort_id>\d+)/(?P<classify_id>\d+)', GoodsListViewByClassify.as_view(), name='GoodsListViewByClassify'),  # GET
