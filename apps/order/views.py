@@ -118,7 +118,7 @@ class CreateOrderView(APIView):
                                          wx_user=wx_user,
                                          commodity=commodity,
                                          commodity_name=commodity.name,
-                                         commodity_specifications=commodity.code + ' ' + commodity.color,
+                                         commodity_specifications=commodity.code,
                                          commodity_price=commodity.price,
                                          commodity_count=int(count),
                                          commodity_image=commodity.image)
