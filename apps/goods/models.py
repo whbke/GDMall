@@ -84,6 +84,7 @@ class Goods(BaseModel):
     sales = models.IntegerField(default=0, verbose_name='销量')
     sort = models.ForeignKey(Sort, on_delete=models.CASCADE, verbose_name='所属类别id')
     classify = models.ForeignKey(Classify, on_delete=models.CASCADE, verbose_name='所属分类id')
+    supplyInformation = models.TextField(default='', verbose_name="供货信息")
     hits = models.IntegerField(default=0, verbose_name='点击量')
     featured = models.BooleanField(default=False, verbose_name='是否主推')
     putaway = models.BooleanField(default=False, verbose_name='是否上架')
