@@ -104,11 +104,11 @@ class GoodsImage(BaseModel):
     '''
     status_choices = (
         (0, '产品大图'),
-        (1, '产品图文'),
+        # (1, '产品图文'),
     )
 
     goods = models.ForeignKey(Goods, on_delete=models.CASCADE, verbose_name='所属产品id')
-    show_region = models.SmallIntegerField(choices=status_choices, verbose_name='展示区域')
+    show_region = models.SmallIntegerField(default=0, choices=status_choices, verbose_name='展示区域')
     image = models.ImageField(upload_to='GoodsImg', blank=True, verbose_name='图片')
     content = MDTextField(verbose_name='内容')
     index = models.SmallIntegerField(default=0, verbose_name='展示顺序')
