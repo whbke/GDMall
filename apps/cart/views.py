@@ -199,7 +199,6 @@ class CartInfoView(APIView):
                     'price':commodity.price,
                     'selected':False,
                     'image':commodity.image.url,
-                    'color':commodity.color,
                     'code':commodity.code,
                     'stock':commodity.stock
                 })

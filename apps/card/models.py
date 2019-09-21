@@ -44,4 +44,4 @@ class UserCard(BaseModel):
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return str(self.title)
+        return str(self.card.title)
