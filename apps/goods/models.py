@@ -158,7 +158,7 @@ class Commodity(BaseModel):
     tbPrice = models.DecimalField(default=-1, max_digits=10, decimal_places=2, verbose_name='淘宝价')
     supplyPrice = models.DecimalField(default=-1, max_digits=10, decimal_places=2, verbose_name='采购价格')
     supplyInformation = models.TextField(default='', verbose_name="采购信息")
-    image = models.ImageField(upload_to='CommdityImg', verbose_name='商品小图')
+    image = models.ImageField(upload_to='CommdityImg', blank=True, verbose_name='商品小图')
     stock = models.IntegerField(default=0, verbose_name='库存')
     sales = models.IntegerField(default=0, verbose_name='商品销量')
     selected = models.BooleanField(default=False,verbose_name='是否选中')
