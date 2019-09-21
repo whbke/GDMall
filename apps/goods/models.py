@@ -154,7 +154,6 @@ class Commodity(BaseModel):
     code = models.CharField(max_length=10, verbose_name='规格')
     # color = models.CharField(max_length=10, verbose_name='一级分类')
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='单价')
-    price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='单价')
     jdPrice = models.DecimalField(default=-1, max_digits=10, decimal_places=2, verbose_name='京东价')
     tbPrice = models.DecimalField(default=-1, max_digits=10, decimal_places=2, verbose_name='淘宝价')
     supplyPrice = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='采购价格')
