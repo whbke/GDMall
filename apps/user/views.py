@@ -10,6 +10,22 @@ from django_redis import get_redis_connection
 from apps.user.models import *
 from common.public_function import PublicFunction
 
+class AppConfigView(APIView):
+    '''
+    获取配置
+    '''
+    def get(self, request):
+        appCfg = AppConfig.objects.values()
+        if appCfg: 
+            return Response(appCfg[0])
+        else:
+            return Response({
+                minOrderAmount: 15,
+                freeFreight: 30,
+                freightAmount: 2,
+                isOpen: False,
+                closeDesc: "未营业",
+            })
 
 class CreateUserView(APIView):
     '''

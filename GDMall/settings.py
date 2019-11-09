@@ -17,8 +17,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # 微信
 WX_PAY_URL='https://api.mch.weixin.qq.com/pay/unifiedorder'
-APP_ID="wx6f8fb4ac7999cce4"
-APP_SECRET="dd32e7f857f112af3954ef5b398c3cf1"
+APP_ID="wx1bab76ce207d9c00"
+APP_SECRET="14d913f694d1afa9d5ba2df87c75dfff"
 MCH_ID='1535717001'
 MCH_KEY='tJYjdlaqw0c3aGpF0MonfOUhh5JIaW4f'
 
