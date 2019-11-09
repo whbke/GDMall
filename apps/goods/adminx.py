@@ -1,7 +1,6 @@
 from apps.goods.models import *
 import xadmin
 
-
 class IndexCarouselAdmin(object):
     pass
 class IndexVideoOrBannerAdmin(object):
@@ -22,7 +21,6 @@ class CommodityBannerAdmin(object):
     pass
 class UserBackgroundAdmin(object):
     pass
-
 
 xadmin.site.register(IndexCarousel, IndexCarouselAdmin)
 xadmin.site.register(IndexVideoOrBanner, IndexVideoOrBannerAdmin)

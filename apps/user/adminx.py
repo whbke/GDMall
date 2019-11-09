@@ -3,6 +3,9 @@ import xadmin             # 导入xadmin
 from apps.user.models import *
 
 
+class AppConfigAdmin(object):
+    pass
+xadmin.site.register(AppConfig, AppConfigAdmin)
 
 class BaseSetting(object):
     enable_themes = True            #开启主题

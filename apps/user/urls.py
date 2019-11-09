@@ -5,6 +5,7 @@ from apps.user.views import *
 app_name = 'user'
 
 urlpatterns = [
+    path('config/', AppConfigView.as_view(), name='AppConfigView'),  # GET
     # re_path('getToken/(?P<code>.*)', TokenView.as_view(), name='getToken'),  # GET获取微信openid
     re_path('getWxUserInfo/(?P<token>.*)', WxUserInfo.as_view(), name='WxUserInfo'),  # GET查询WxUser
     path('updataWxUserInfo', UpdataWxUser.as_view(), name='WxUserInfo'),  # POST修改微信用户信息

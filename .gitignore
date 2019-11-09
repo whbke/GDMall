@@ -3,3 +3,6 @@
 venv
 collected_static
 media
+.idea/workspace.xml
+.vscode/
+

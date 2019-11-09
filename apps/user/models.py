@@ -5,6 +5,25 @@ from django.db import models
 from common.base_model import BaseModel
 
 
+class AppConfig(BaseModel):
+    '''
+    APP配置
+    '''
+    minOrderAmount = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='起送额度')
+    freeFreight = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='免运费额度')
+    freightAmount = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='运费')
+    isOpen = models.BooleanField(default=True, verbose_name='是否开业')
+    closeDesc = models.CharField(max_length=1024, blank=True, verbose_name='观点说明')
+
+    class Meta:
+        db_table = 'gd_app_config'
+        verbose_name = 'APP配置'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return str(self.id)
+
+
 class User(BaseModel, AbstractUser):
     '''
     用户信息模型

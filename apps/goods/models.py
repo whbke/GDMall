@@ -3,7 +3,6 @@ from django.db import models
 from common.base_model import BaseModel
 from mdeditor.fields import MDTextField   # 必须导入
 
-
 class IndexCarousel(BaseModel):
     '''
     首页轮播展示模型类
