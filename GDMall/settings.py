@@ -17,8 +17,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # 微信
 WX_PAY_URL='https://api.mch.weixin.qq.com/pay/unifiedorder'
-APP_ID="wx6f8fb4ac7999cce4"
-APP_SECRET="dd32e7f857f112af3954ef5b398c3cf1"
+APP_ID="wx1bab76ce207d9c00"
+APP_SECRET="14d913f694d1afa9d5ba2df87c75dfff"
 MCH_ID='1535717001'
 MCH_KEY='tJYjdlaqw0c3aGpF0MonfOUhh5JIaW4f'
 
@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'stdimage',  # 上传图片
     'mdeditor',  # markdown
     # 'corsheaders', # 跨域
+    'gunicorn',
 ]
 
 # 配置使用到的用户模型类
@@ -63,6 +64,7 @@ AUTH_USER_MODEL = 'user.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     # 'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -103,7 +105,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'gdmall',
         'USER': 'root',
-        'PASSWORD': 'mariadb1989',
+        'PASSWORD': '123456',
         'HOST': '127.0.0.1'
     }
 }
@@ -146,8 +148,9 @@ USE_TZ = False
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 # 指定收集静态文件的路径
-# STATIC_ROOT = '/home/wh/work/code/GDMall'
 STATIC_ROOT = os.path.join(BASE_DIR, 'collected_static')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' # 设置Gzip压缩
+
 
 # 证书配置
 # SESSION_COOKIE_SECURE=True

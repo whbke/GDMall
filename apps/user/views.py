@@ -20,6 +20,7 @@ class CreateUserView(APIView):
         # 获取请求数据
         data = request.body
         data = json.loads(data)
+        print(data)
         code = data['code']
         # 获取open_id、session_key
         data = PublicFunction().getOpenIdAndSessionKey(code)
