@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'stdimage',  # 上传图片
     'mdeditor',  # markdown
     # 'corsheaders', # 跨域
+    'gunicorn',
 ]
 
 # 配置使用到的用户模型类
@@ -63,6 +64,7 @@ AUTH_USER_MODEL = 'user.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     # 'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -103,7 +105,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'gdmall',
         'USER': 'root',
-        'PASSWORD': 'mariadb1989',
+        'PASSWORD': '123456',
         'HOST': '127.0.0.1'
     }
 }
@@ -146,8 +148,9 @@ USE_TZ = False
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 # 指定收集静态文件的路径
-# STATIC_ROOT = '/home/wh/work/code/GDMall'
 STATIC_ROOT = os.path.join(BASE_DIR, 'collected_static')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' # 设置Gzip压缩
+
 
 # 证书配置
 # SESSION_COOKIE_SECURE=True
