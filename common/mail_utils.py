@@ -8,15 +8,17 @@ from email.header import Header
 from apps.order import models
  
 my_sender='whbke@163.com'    # 发件人邮箱账号
-my_pass = ''              # 发件人邮箱密码
+my_pass = 'Wangyi198997'              # 发件人邮箱密码
 my_receivers=['546878587@qq.com']      # 收件人邮箱账号，我这边发送给自己
 
 def send_order_email(orderId, title):
     order_info = models.OrderInfo.objects.get(pk=orderId)
     order_list = models.OrderList.objects.filter(order_info=order_info).all()
     mail_msg = """
-    <p>基本信息</p>
     <table>
+        <tr>
+            <td colspan="2"><h3>基本信息</h3></td>
+        </tr>
         <tr>
             <td>订单地址：</td>
             <td>{address}</td>
@@ -39,12 +41,14 @@ def send_order_email(orderId, title):
         name=order_info.name,
         total_price=order_info.total_price)
     mail_msg += """
-    <p>基本信息</p>
     <table>
         <tr>
-            <th>商品</th>
-            <th>价格</th>
-            <th>个数</th>
+            <td colspan="2"><h3>商品列表</h3></td>
+        </tr>
+        <tr>
+            <td>商品</td>
+            <td>价格</td>
+            <td>个数</td>
         </tr>
     """
     for item in order_list:
@@ -58,6 +62,7 @@ def send_order_email(orderId, title):
             name=item.commodity.name,
             price=item.commodity_price,
             count=item.commodity_count)
+    mail_msg += "</table>"
 
         
     try:
