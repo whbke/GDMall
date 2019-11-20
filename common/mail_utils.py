@@ -46,9 +46,9 @@ def send_order_email(orderId, title):
             <td colspan="2"><h3>商品列表</h3></td>
         </tr>
         <tr>
-            <td>商品</td>
-            <td>价格</td>
-            <td>个数</td>
+            <th>商品</th>
+            <th>价格</th>
+            <th>个数</th>
         </tr>
     """
     for item in order_list:
