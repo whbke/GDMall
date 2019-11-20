@@ -39,7 +39,7 @@ def send_order_email(orderId, title):
         name=order_info.name,
         total_price=order_info.total_price)
     mail_msg += """
-    <p>基本信息</p>
+    <p>商品列表</p>
     <table>
         <tr>
             <th>商品</th>
