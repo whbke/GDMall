@@ -20,6 +20,7 @@ from apps.goods.models import Commodity, Goods
 from apps.order.models import OrderInfo, OrderList
 from apps.user.models import Address, WxUser
 from common.public_function import PublicFunction
+from common.mail_utils import send_order_email
 
 
 class CreateOrderView(APIView):
@@ -142,6 +143,8 @@ class CreateOrderView(APIView):
 
             order.commodity_total_price = total_price
             order.save()
+
+            send_order_email(order.id, '新增')
         except Exception as e:
             # 数据库操作出错，回滚到sid事务保存点
             print(e)
@@ -348,6 +351,7 @@ class DeleteOrderView(APIView):
                 order_info.save()
             except:
                 return Response({'msg': '订单不存在'})
+        send_order_email(order_info_id, '删除')
         return Response({'msg': '删除订单成功'})
 
 
