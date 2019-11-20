@@ -8,7 +8,7 @@ from email.header import Header
 from apps.order import models
  
 my_sender='whbke@163.com'    # 发件人邮箱账号
-my_pass = 'Wangyi198997'              # 发件人邮箱密码
+my_pass = ''              # 发件人邮箱密码
 my_receivers=['546878587@qq.com']      # 收件人邮箱账号，我这边发送给自己
 
 def send_order_email(orderId, title):
