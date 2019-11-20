@@ -1,17 +1,15 @@
 #!/usr/bin/python
-# -*- coding: UTF-8 -*- 
+# -*- coding: UTF-8 -*-  
 import smtplib
 from email.mime.text import MIMEText
+from email.utils import formataddr
 from email.header import Header
 
 from apps.order import models
  
-sender = 'whbke@163.com'
-receivers = ['whbke@163.com']  # 接收邮件，可设置为你的QQ邮箱或者其他邮箱
- # 第三方 SMTP 服务
-mail_host="smtp.163.com"  #设置服务器
-mail_user="whbke@163.com"    #用户名
-mail_pass=""   #口令 
+my_sender='whbke@163.com'    # 发件人邮箱账号
+my_pass = ''              # 发件人邮箱密码
+my_receivers=['546878587@qq.com']      # 收件人邮箱账号，我这边发送给自己
 
 def send_order_email(orderId, title):
     order_info = models.OrderInfo.objects.get(pk=orderId)
@@ -61,19 +59,23 @@ def send_order_email(orderId, title):
             price=item.commodity_price,
             count=item.commodity_count)
 
-    message = MIMEText(mail_msg, 'html', 'utf-8')
-    message['From'] = Header("吃货集中营", 'utf-8')
-    message['To'] =  Header("送货员", 'utf-8')
-
-    subject = '<{title}>-订单 {order_id}'.format(title=title, order_id=orderId)
-    message['Subject'] = Header(subject, 'utf-8')
         
     try:
-        smtpObj = smtplib.SMTP() 
-        smtpObj.connect(mail_host, 25)    # 25 为 SMTP 端口号
-        smtpObj.login(mail_user,mail_pass)  
-        smtpObj.sendmail(sender, receivers, message.as_string())
+        message = MIMEText(mail_msg, 'html', 'utf-8')
+        message['From']=formataddr(("吃货集中营",my_sender))  # 括号里的对应发件人邮箱昵称、发件人邮箱账号
+        message['To']=','.join([formataddr(("送货员<{madd}>".format(madd=item), item)) for item in my_receivers])              # 括号里的对应收件人邮箱昵称、收件人邮箱账号
+        subject = '{title}-订单 {order_id}'.format(title=title, order_id=orderId)
+        message['Subject'] = Header(subject, 'utf-8')
+ 
+        server=smtplib.SMTP_SSL("smtp.163.com", 465)  # 发件人邮箱中的SMTP服务器，端口是25
+        server.login(my_sender, my_pass)  # 括号中对应的是发件人邮箱账号、邮箱密码
+        server.sendmail(my_sender, my_receivers, message.as_string())  # 括号中对应的是发件人邮箱账号、收件人邮箱账号、发送邮件
+        server.quit()  # 关闭连接
         print("邮件发送成功")
     except smtplib.SMTPException as ee:
         print(ee)
         print("Error: 无法发送邮件")
+
+def _format_addr(s):
+    name, addr = parseaddr(s)
+    return formataddr((Header(name, 'utf-8').encode(), addr))
