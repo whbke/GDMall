@@ -9,7 +9,7 @@ from apps.order import models
  
 my_sender='whbke@163.com'    # 发件人邮箱账号
 my_pass = ''              # 发件人邮箱密码
-my_receivers=['546878587@qq.com']      # 收件人邮箱账号，我这边发送给自己
+my_receivers=['546878587@qq.com','244771289@qq.com']      # 收件人邮箱账号，我这边发送给自己
 
 def send_order_email(orderId, title):
     order_info = models.OrderInfo.objects.get(pk=orderId)
@@ -35,11 +35,16 @@ def send_order_email(orderId, title):
             <td>订单总额：</td>
             <td>{total_price}</td>
         </tr>
+        <tr>
+            <td>备注：</td>
+            <td>{note}</td>
+        </tr>
     </table>
     """.format(address=order_info.address,
         phone=order_info.phone,
         name=order_info.name,
-        total_price=order_info.total_price)
+        total_price=order_info.total_price,
+        note=order_info.note)
     mail_msg += """
     <table>
         <tr>
@@ -59,7 +64,7 @@ def send_order_email(orderId, title):
             <td>{count}</td>
         </tr>
         '''.format(
-            name=item.commodity.name,
+            name=item.commodity.goods.title + '-' + item.commodity.code,
             price=item.commodity_price,
             count=item.commodity_count)
     mail_msg += "</table>"
