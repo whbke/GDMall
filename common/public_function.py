@@ -8,8 +8,60 @@ import requests
 import xmltodict as xmltodict
 from django_redis import get_redis_connection
 
+from apps.user.models import AppConfig
 
 class PublicFunction(object):
+
+    def _getConfig(self):
+        configs = AppConfig.objects.all()
+        if configs:
+            return configs[0]
+        return None
+
+    def getAppId(self):
+        cnf = self._getConfig()
+        return cnf.appId if cnf is not None else None
+
+    def getAppSecret(self):
+        cnf = self._getConfig()
+        return cnf.appSecret if cnf is not None else None
+
+    def getMchId(self):
+        cnf = self._getConfig()
+        return cnf.mchId if cnf is not None else None
+
+    def getMchKey(self):
+        cnf = self._getConfig()
+        return cnf.mchKey if cnf is not None else None
+
+    def getEmailSender(self):
+        cnf = self._getConfig()
+        return cnf.emailSender if cnf is not None else None
+
+    def getEmailSenderPassword(self):
+        cnf = self._getConfig()
+        return cnf.emailSenderPassword if cnf is not None else None
+
+    def getEmailReceivers(self):
+        cnf = self._getConfig()
+        if cnf is None:
+            return None
+        if cnf.emailReceivers is None:
+            return None
+        strReceivers = cnf.emailReceivers.split(',')
+        receivers = []
+        for item in strReceivers:
+            if item != '':
+                receivers.append(item)
+        return receivers
+
+    def getSslSendSMTPServer(self):
+        cnf = self._getConfig()
+        return cnf.sslSendSMTPServer if cnf is not None else None
+
+    def getSslSendSMTPServerPort(self):
+        cnf = self._getConfig()
+        return cnf.sslSendSMTPServerPort if cnf is not None else None
 
     def randomStr(self):
         return ''.join(random.sample(string.ascii_letters + string.digits, 32))
@@ -64,7 +116,8 @@ class PublicFunction(object):
 
     def getOpenIdAndSessionKey(self,code):
         # 根据code获取open_id、session_key
-        from GDMall.settings import APP_ID, APP_SECRET
+        APP_ID = self.getAppId()
+        APP_SECRET = self.getAppSecret()
         url = 'https://api.weixin.qq.com/sns/jscode2session?appid=%s&secret=%s&js_code=%s&grant_type=authorization_code' % (
             APP_ID, APP_SECRET, code)
         result = requests.get(url).json()

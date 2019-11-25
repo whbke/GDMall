@@ -14,6 +14,15 @@ class AppConfig(BaseModel):
     freightAmount = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='运费')
     isOpen = models.BooleanField(default=True, verbose_name='是否开业')
     closeDesc = models.CharField(max_length=1024, blank=True, verbose_name='观点说明')
+    appId = models.CharField(max_length=128, blank=True, verbose_name='APP ID')
+    appSecret = models.CharField(max_length=128, blank=True, verbose_name='APP Secret')
+    mchId = models.CharField(max_length=128, blank=True, verbose_name='MCH ID')
+    mchKey = models.CharField(max_length=128, blank=True, verbose_name='MCH KEY')
+    emailSender = models.CharField(max_length=128, blank=True, verbose_name='发送邮箱账户')
+    emailSenderPassword = models.CharField(max_length=128, blank=True, verbose_name='发送邮箱密码')
+    emailReceivers = models.CharField(max_length=512, blank=True, verbose_name='接受邮箱，使用","分开')
+    sslSendSMTPServer = models.CharField(max_length=512, blank=True, verbose_name='发送邮箱SMTP_SSL服务器地址')
+    sslSendSMTPServerPort = models.IntegerField(default=465, blank=True, verbose_name='发送邮箱SMTP_SSL服务器端口')
 
     class Meta:
         db_table = 'gd_app_config'

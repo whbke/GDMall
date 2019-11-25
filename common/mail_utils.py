@@ -6,12 +6,14 @@ from email.utils import formataddr
 from email.header import Header
 
 from apps.order import models
- 
-my_sender='whbke@163.com'    # 发件人邮箱账号
-my_pass = ''              # 发件人邮箱密码
-my_receivers=['546878587@qq.com','244771289@qq.com']      # 收件人邮箱账号，我这边发送给自己
+
+from common.public_function import PublicFunction
 
 def send_order_email(orderId, title):
+    my_sender = PublicFunction().getEmailSender()  # 发件人邮箱账号
+    my_pass = PublicFunction().getEmailSenderPassword()  # 发件人邮箱密码
+    my_receivers = PublicFunction().getEmailReceivers()  # 收件人邮箱账号，我这边发送给自己
+
     order_info = models.OrderInfo.objects.get(pk=orderId)
     order_list = models.OrderList.objects.filter(order_info=order_info).all()
     mail_msg = """
@@ -77,7 +79,9 @@ def send_order_email(orderId, title):
         subject = '{title}-订单 {order_id}'.format(title=title, order_id=orderId)
         message['Subject'] = Header(subject, 'utf-8')
  
-        server=smtplib.SMTP_SSL("smtp.163.com", 465)  # 发件人邮箱中的SMTP服务器，端口是25
+        # server=smtplib.SMTP_SSL("smtp.163.com", 465)  # 发件人邮箱中的SMTP服务器，端口是25
+        server = smtplib.SMTP_SSL(PublicFunction().getSslSendSMTPServer(),
+                                  PublicFunction().getSslSendSMTPServerPort())  # 发件人邮箱中的SMTP服务器，端口是25
         server.login(my_sender, my_pass)  # 括号中对应的是发件人邮箱账号、邮箱密码
         server.sendmail(my_sender, my_receivers, message.as_string())  # 括号中对应的是发件人邮箱账号、收件人邮箱账号、发送邮件
         server.quit()  # 关闭连接
@@ -85,7 +89,3 @@ def send_order_email(orderId, title):
     except smtplib.SMTPException as ee:
         print(ee)
         print("Error: 无法发送邮件")
-
-def _format_addr(s):
-    name, addr = parseaddr(s)
-    return formataddr((Header(name, 'utf-8').encode(), addr))

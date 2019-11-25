@@ -9,20 +9,10 @@ from rest_framework.views import APIView
 from apps.order.models import OrderInfo, WxOrder
 from apps.user.models import WxUser
 from common.public_function import *
-from GDMall.settings import APP_ID, APP_SECRET, MCH_ID, MCH_KEY, WX_PAY_URL
+from GDMall.settings import WX_PAY_URL, MY_DOMAIN_ADRRESS
+from common.public_function import PublicFunction
 
 pay_url = WX_PAY_URL
-# test_pay_url = 'https://api.mch.weixin.qq.com/sandboxnew/pay/unifiedorder'
-# sx_url = 'https://api.mch.weixin.qq.com/sandboxnew/pay/getsignkey'
-
-wxinfo = {
-    'APPID': APP_ID,
-    'SECRET': APP_SECRET,
-    'MCHID': MCH_ID,
-    'MCHKEY': MCH_KEY
-    # 'MCHKEY': 'tJYjdlaqw0c3aGpF0MonfOUhh5JIaW4f'
-}
-
 
 class WxPayView(APIView):
 
@@ -51,17 +41,17 @@ class WxPayView(APIView):
         str32 = PublicFunction().randomStr()
         params = {
             'openid': open_id,
-            'appid': wxinfo['APPID'],
-            'mch_id': wxinfo['MCHID'],
+            'appid': PublicFunction().getAppId(),
+            'mch_id': PublicFunction().getMchId(),
             'nonce_str': str32,
             'body': '微信支付',
             'out_trade_no': order_id,
             'total_fee': total_fee,
             'spbill_create_ip': '47.112.147.15',
-            'notify_url': 'http://www.grotesquery.cn/api/pay/get',
+            'notify_url': MY_DOMAIN_ADRRESS + '/api/pay/get',
             'trade_type': 'JSAPI'
         }
-        sign = PublicFunction().wx_sign(params, wxinfo['MCHKEY'])
+        sign = PublicFunction().wx_sign(params, PublicFunction().getMchKey())
         params['sign'] = sign
         print(params)
         # xmlmsg = PublicFunction().send_xml_request(pay_url, params)
@@ -72,14 +62,14 @@ class WxPayView(APIView):
             prepay_id = xmlmsg['xml']['prepay_id']
             timeStamp = str(int(time.time()))
             pay_data = {
-                'appId': wxinfo['APPID'],
+                'appId': PublicFunction().getAppId(),
                 'nonceStr': str32,
                 'package': 'prepay_id=' + prepay_id,
                 'signType': 'MD5',
                 'timeStamp': timeStamp
             }
             # 再次签名
-            paySign = PublicFunction().wx_sign(pay_data, wxinfo['MCHKEY'])
+            paySign = PublicFunction().wx_sign(pay_data, PublicFunction().getMchKey())
             pay_data['paySign'] = paySign
         return Response(pay_data)
 
@@ -204,16 +194,20 @@ class PayView(APIView):
             wx_order.save()
 
             # 发送短信
-            from common.ShowapiRequest import ShowapiRequest
+            # from common.ShowapiRequest import ShowapiRequest
+            #
+            # r = ShowapiRequest("http://route.showapi.com/28-1", "98318", "3ab72c8c1c2b4cd4b60a6e66a6573b3f")
+            # r.addBodyPara("mobile", "18680688861")
+            # r.addBodyPara("content", "{\"code\":\""+str(out_trade_no)+"\",\"price\":\""+ str(order_info.total_price) +"\"}")
+            # r.addBodyPara("tNum", "T170317004684")
+            # r.addBodyPara("big_msg", "")
+            # res = r.post()
+            # r.addBodyPara("mobile", "19146459712")
+            # res = r.post()
 
-            r = ShowapiRequest("http://route.showapi.com/28-1", "98318", "3ab72c8c1c2b4cd4b60a6e66a6573b3f")
-            r.addBodyPara("mobile", "18680688861")
-            r.addBodyPara("content", "{\"code\":\""+str(out_trade_no)+"\",\"price\":\""+ str(order_info.total_price) +"\"}")
-            r.addBodyPara("tNum", "T170317004684")
-            r.addBodyPara("big_msg", "")
-            res = r.post()
-            r.addBodyPara("mobile", "19146459712")
-            res = r.post()
+            # 发送邮件
+            from common.mail_utils import send_order_email
+            send_order_email(order_info.id, '支付成功')
 
             # print(res.text)  # 返回信息
 

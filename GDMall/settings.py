@@ -17,10 +17,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # 微信
 WX_PAY_URL='https://api.mch.weixin.qq.com/pay/unifiedorder'
-APP_ID="wx1bab76ce207d9c00"
-APP_SECRET="14d913f694d1afa9d5ba2df87c75dfff"
-MCH_ID='1535717001'
-MCH_KEY='tJYjdlaqw0c3aGpF0MonfOUhh5JIaW4f'
+MY_DOMAIN_ADRRESS='http://262n51n181.wicp.vip'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
@@ -105,7 +102,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'gdmall',
         'USER': 'root',
-        'PASSWORD': '123456',
+        'PASSWORD': 'mariadb1989',
         'HOST': '127.0.0.1'
     }
 }
