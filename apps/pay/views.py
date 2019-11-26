@@ -74,6 +74,18 @@ class WxPayView(APIView):
         return Response(pay_data)
 
 
+class PayStatusView(APIView):
+    def post(self, request):
+        # 接收数据
+        data = json.loads(request.body)
+        order_id = data['order_id']
+        order_info = OrderInfo.objects.get(order_id=order_id)
+        return Response({
+            'order_id': order_id,
+            'state': order_info.state
+        })
+
+
 class PayView(APIView):
     '''
     获取微信返回的支付消息
@@ -189,7 +201,7 @@ class PayView(APIView):
             order_info.save()
             # 加入到微信订单表
             wx_order = WxOrder.objects.get(order_info=order_info)
-            wx_order.wx_order=transaction_id
+            wx_order.wx_order = transaction_id
             wx_order.pay_time = time_end
             wx_order.save()
 
