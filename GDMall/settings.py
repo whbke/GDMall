@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'apps.card',  # 优惠券模块
     'apps.pay',  # 支付模块
     'apps.order', # 订单模块
+    'apps.express', # 快递模块
     # 'werkzeug_debugger_runserver',    # https
     # 'django_extensions',  # https
     'rest_framework',  # 添加rest_framework
