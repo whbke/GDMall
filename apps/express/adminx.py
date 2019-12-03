@@ -11,7 +11,8 @@ class ExpressCompanyAdmin(object):
 
 
 class OrderExpressAdmin(object):
-    pass
+    fields = ['id', 'order', 'company', 'expressId', 'expressStatus']
+    list_display = ['id', 'order', 'company', 'expressId', 'expressStatus']
 
 
 xadmin.site.register(KdNiaoExpressConfig, KdNiaoExpressConfigAdmin)
