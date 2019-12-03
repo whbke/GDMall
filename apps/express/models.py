@@ -39,7 +39,7 @@ class OrderExpress(models.Model):
     expressId = models.CharField(default='', max_length=128, verbose_name='订单编号')
     expressStatus = models.SmallIntegerField(default=0, choices=express_status, verbose_name='快递状态')
     expressInfo = models.TextField(default=None, null=True, blank=True, verbose_name='快递信息')
-    expressInfoUpdateTime = models.DateTimeField(default=timezone.now(), null=True, blank=True, verbose_name='快递信息更新时间')
+    expressInfoUpdateTime = models.DateTimeField(default=timezone.now, null=True, blank=True, verbose_name='快递信息更新时间')
 
     class Meta:
         db_table = 'gd_order_express'
