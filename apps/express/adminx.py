@@ -11,7 +11,7 @@ class ExpressCompanyAdmin(object):
 
 
 class OrderExpressAdmin(object):
-    fields = ['id', 'order', 'company', 'expressId', 'expressStatus']
+    # fields = ['id', 'order', 'company', 'expressId', 'expressStatus', 'expressInfoUpdateTime']
     list_display = ['id', 'order', 'company', 'expressId', 'expressStatus']
 
 
